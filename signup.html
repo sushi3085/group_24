@@ -13,13 +13,92 @@
         crossorigin="anonymous" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Su_files\css\homepage.css">
     <style>
         .navbar-brand {
             font-size: 24px;
             font-weight: bold;
             color: #fff;
         }
+
+        .error {
+            font-family: 微軟正黑體;
+            font-weight: bold;
+            color: red;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function ($) {
+            $("#form").validate({
+                rules: {
+                    "account": {
+                        required: true,
+                        // minlength:6,
+                        // maxlength:12
+                    },
+                    "email": {
+                        required: true,
+                        email: true
+                    },
+                    "phone": {
+                        required: true,
+                        minlength: 10,
+                        maxlength: 10
+                    },
+                    "password": {
+                        required: true,
+                        // minlength:6,
+                        // maxlength:12
+                    },
+                    "confirm": {
+                        required: true,
+                        // minlength:6,
+                        // maxlength:12,
+                        equalTo: "#password"
+                    },
+                    "gender": {
+                        required: true
+                    },
+                    "birthday": {
+                        required: true
+                    }
+                },
+                messages: {
+                    "account": {
+                        required: "請輸入帳號",
+                    },
+                    "email": {
+                        required: "請輸入電子信箱",
+                        email: "請輸入正確的電子信箱"
+                    },
+                    "phone": {
+                        required: "請輸入手機號碼",
+                        minlength: "請輸入正確的手機號碼",
+                        maxlength: "請輸入正確的手機號碼"
+                    },
+                    "password": {
+                        required: "請輸入密碼",
+                    },
+                    "confirm": {
+                        required: "請輸入確認密碼",
+                        equalTo: "請輸入相同的密碼"
+                    },
+                    "gender": {
+                        required: "請選擇性別"
+                    },
+                    "birthday": {
+                        required: "請選擇生日"
+                    }
+                }
+            });
+        });
+    </script>
 </head>
 
 
@@ -77,78 +156,88 @@
 
 
 
-    <body>
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="text-center">帳號註冊</h3>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="username" class="form-label">帳號</label>
-                                    <input type="text" class="form-control" id="username">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">電子信箱</label>
-                                    <input type="email" class="form-control" id="email">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="phone" class="form-label">電話號碼</label>
-                                    <input type="tel" class="form-control" id="phone">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">密碼</label>
-                                    <input type="password" class="form-control" id="password">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="confirm-password" class="form-label">確認密碼</label>
-                                    <input type="password" class="form-control" id="confirm-password">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="gender" class="form-label">性別</label>
-                                    <select class="form-select" id="gender">
-                                        <option value="">請選擇</option>
-                                        <option value="male">男性</option>
-                                        <option value="female">女性</option>
-                                        <option value="other">其他</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="birthday" class="form-label">生日</label>
-                                    <input type="date" class="form-control" id="birthday">
-                                </div>
-                                <div class="d-grid mb-3 text-center">
-                                    <button type="submit" class="btn btn-primary ">註冊</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-footer">
-                            <div class="text-center">
-                                已經有帳號？ <a href="#">立即登入</a>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">帳號註冊</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="form">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">帳號</label>
+                                <label for="username" id="username-error" class="error"></label>
+                                <input type="text" class="form-control" id="username" name="account">
                             </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">電子信箱</label>
+                                <label for="email" id="email-error" class="error"></label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">電話號碼</label>
+                                <label for="phone" id="phone-error" class="error"></label>
+                                <input type="tel" class="form-control" id="phone" name="phone">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">密碼</label>
+                                <label for="password" id="password-error" class="error"></label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirm-password" class="form-label">確認密碼</label>
+                                <label for="confirm-password" id="confirm-password-error" class="error"></label>
+                                <input type="password" class="form-control" id="confirm-password" name="confirm">
+                            </div>
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">性別</label>
+                                <select class="form-select" id="gender" name="gender">
+                                    <option value="">請選擇</option>
+                                    <option value="male">男性</option>
+                                    <option value="female">女性</option>
+                                    <option value="other">其他</option>
+                                </select>
+                                <label for="gender" id="gender-error" class="error"></label>
+                            </div>
+                            <div class="mb-3">
+                                <label for="birthday" class="form-label">生日</label>
+                                <label for="birthday" id="birthday-error" class="error"></label>
+                                <input type="date" class="form-control" id="birthday" name="birthday">
+                            </div>
+                            <div class="d-grid mb-3 text-center">
+                                <button type="submit" class="btn btn-primary ">註冊</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-center">
+                            已經有帳號？ <a href="#">立即登入</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <br><br> 
+    <br><br>
 
 
-    <div class="row bg-secondary">
+    <!--
+        The overflow problem of the footer is from assign classname 'row' to it.
+        Still figuring out how to solve it.
+        -->
+    <div class="bg-secondary footerContainer">
         <div class="col-sm-1"></div>
         <!-- contect with us -->
         <div class="col-sm-3">
             <ul class="footerSection">
-                <li>聯絡我們：</li>
-                <li>電話：(04) 7232105</li>
-                <li>信箱：catdog@aptit.com</li>
-                <li>地址：台北市大安區復興南路一段1號</li>
-                <li>Facebook：<a style="color: lightblue;" href="https://www.youtube.com">埃破抬非死不可</a></li>
+                <li><u>聯絡我們：</u></li>
+                <li>電話：</li><li>(04) 7232105</li>
+                <li>信箱：</li><li>catdog@aptit.com</li>
+                <!-- <li>地址：</li><li>台北市大安區</li><li>復興南路一段1號</li> -->
+                <li>Facebook：</li><li><a style="color: lightblue;" href="https://www.youtube.com">埃破抬非死不可</a></li>
             </ul>
         </div>
         <!-- working group -->
