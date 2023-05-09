@@ -79,3 +79,8 @@ div {
     bottom: 100px;
     right: 100px;
 }
+
+.error{
+    color: red;
+    font-weight: bold;
+}
