@@ -35,6 +35,9 @@
   <link href="plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
   
   <link href="css/style.css" rel="stylesheet">
+  <?php
+  include "color_ramp.php";
+  ?>
 
 </head>
 
