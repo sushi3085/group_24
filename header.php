@@ -82,7 +82,7 @@ echo'
 								<a class="nav-link login-button" href="login.php" style="border: solid black 2px; color:black;">登入</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text-white add-button" href="ad-listing.html"><i class="fa fa-plus-circle"></i> 加入會員</a>
+								<a class="nav-link text-white add-button" href="register.php"><i class="fa fa-plus-circle"></i> 加入會員</a>
 							</li>
 						</ul>
 					</div>

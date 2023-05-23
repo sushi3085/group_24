@@ -5,6 +5,11 @@
  * GITHUB: https://github.com/themefisher/
  */
 
+ .error{
+  color: red;
+ }
+
+
 /*=== MEDIA QUERY ===*/
 @import url("https://fonts.googleapis.com/css?family=Muli:300,400,600,700,800,900");
 body {

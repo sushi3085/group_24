@@ -38,6 +38,9 @@
   <?php
   include "color_ramp.php";
   ?>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+  <script src="js/form_validation.js"></script>
 
 </head>
 
@@ -57,15 +60,27 @@ include "header.php";
           <form action="#" id="form">
             <fieldset class="p-4">
               <label style="color:black;" for="mail"><b>電子郵件</b></label>
+              <label id="mail-error" class="error" for="mail"></label>
               <input name="mail"class="form-control mb-3" type="email" placeholder="電子郵件(必填)" required>
+
               <label style="color:black;" for="pswd"><b>密碼</b></label>
-              <input name="pswd" class="form-control mb-3" type="password" placeholder="密碼(必填)" required>
+              <label id="pswd-error" class="error" for="pswd"></label>
+              <input name="pswd" class="form-control mb-3" type="password" placeholder="密碼(必填)" id="pswd" required>
+              
               <label style="color:black;" for="checkpswd"><b>確認密碼</b></label>
+              <label id="checkpswd-error" class="error" for="checkpswd"></label>
               <input name="checkpswd" class="form-control mb-3" type="password" placeholder="密碼確認(必填)" required>
+              
+              <label style="color:black;" for="birthday"><b>生日</b></label>
+              <label id="birthday-error" class="error" for="birthday"></label>
+              <input name="birthday" class="form-control mb-3" type="date" required>
+              
               <div class="loggedin-forgot d-inline-flex my-3">
-                <input type="checkbox" id="registering" class="mt-1">
-                <label style="color:black;" for="registering" class="px-2" style="margin: 0;">註冊即代表您同意您是一位喜歡毛小孩的善心人士。</label>
+                <input type="checkbox" id="registering" class="mt-1" name="registering">
+                <label style="color:black; margin: 0;" for="registering" class="px-2">註冊即代表您同意您是一位喜歡毛小孩的善心人士。</label>
               </div>
+              <label id="registering-error" class="error" for="registering"></label>
+              <br>
               <button type="submit" class="btn btn-primary font-weight-bold mt-3">送出表單並註冊</button>
             </fieldset>
           </form>
