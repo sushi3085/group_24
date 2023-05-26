@@ -1,0 +1,32 @@
+.vcenter {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.hcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center{
+    background-color: var(---lightyellow);
+    margin: auto;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.padding{
+    padding: 10px;
+}
+
+.roundBorder{
+    border-radius: 10px;
+    border: 1px solid #444444;
+}
+
+label{
+    color:black;
+    font-weight: bold;
+}

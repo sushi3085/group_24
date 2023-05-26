@@ -1,3 +1,10 @@
+<?php
+include "cookie.php";
+
+$cart = getCookieOrDefault("cart", 0);
+setcookie("cart", $cart+1, time()+10);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,36 +52,46 @@ include "header.php";
   <div style="display:flex; flex-wrap: wrap; align-items: flex-start;">
     <!-- 購物車裡面的單個產品會長這樣 -->
     <?php
-    for($i=0; $i<5; $i++)
-    echo
-    '
-      <div class="card col-lg-3 col-md-4 col-sm-6">
-        <div class="thumb-content">
-          <a href="single.html">
-            <img class="card-img-top img-fluid" src="images/products/products-3.jpg" alt="Card image cap">
-          </a>
-        </div>
-        <div class="card-body">
-          <h4 class="card-title"><a href="single.html">這是一張商品名稱</a></h4>
-          <p class="card-text">商品簡述blablabla</p>
-          <div style="text-align: center;">
-            <div class="product-ratings">
-              <ul class="list-inline">
-              <li class="list-inline-item"><i class="fa fa-star"></i></li>
-              <li class="list-inline-item"><i class="fa fa-star"></i></li>
-              <li class="list-inline-item"><i class="fa fa-star"></i></li>
-              <li class="list-inline-item"><i class="fa fa-star"></i></li>
-              <li class="list-inline-item"><i class="fa fa-star"></i></li>
-              </ul>
+    include "db_conn.php";
+    // get product info from db
+    $result = sqlQry("SELECT * FROM `product`");
+
+    while($row = mysqli_fetch_assoc($result)){
+      $name = $row['pName'];
+      $price = $row['unitPrice'];
+      $desc = $row['category'];
+      // $imgPath = $row['imgPath'];
+      // $rating = $row['rating'];
+      echo
+      "
+        <div class='card col-lg-3 col-md-4 col-sm-6'>
+          <div class='thumb-content'>
+            <a href='single.html'>
+              <img class='card-img-top img-fluid' src='images/products/products-3.jpg' alt='Card image cap'>
+            </a>
+          </div>
+          <div class='card-body'>
+            <h4 class='card-title'><a href='single.html'>$name</a></h4>
+            <p class='card-text'>$desc</p>
+            <div style='text-align: center;'>
+              <div class='product-ratings'>
+                <ul class='list-inline'>
+                <li class='list-inline-item'><i class='fa fa-star'></i></li>
+                <li class='list-inline-item'><i class='fa fa-star'></i></li>
+                <li class='list-inline-item'><i class='fa fa-star'></i></li>
+                <li class='list-inline-item'><i class='fa fa-star'></i></li>
+                <li class='list-inline-item'><i class='fa fa-star'></i></li>
+                </ul>
+              </div>
+              單價 <span class='font-weight-bolder text-monospace'>$price</span> 元<br>
+              總共<input type='number' min='0' style='width: 40px;' value='".$cart."'>份<br>
+              小記 <span class='font-weight-bolder text-monospace'>".$price*2 ."</span> 元<br>
+              <button class='btn btn-warning btn-sm' style='align-self: center'>取消購買</button>
             </div>
-            單價 <span class="font-weight-bolder text-monospace">N</span> 元<br>
-            總共<input type="number" min="0" style="width: 40px;">份<br>
-            小記 <span class="font-weight-bolder text-monospace">N</span> 元<br>
-            <button class="btn btn-warning btn-sm" style="align-self: center">取消購買</button>
           </div>
         </div>
-      </div>
-    ';
+      ";
+    }
     ?>
   </div>
   <!-- 總結一些數據 -->
