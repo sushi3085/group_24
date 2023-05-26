@@ -18,11 +18,24 @@ while($row = mysqli_fetch_assoc($result)){
 ?>
 
 <?php
+// check if user is saving the change, if so, update database
+// and update the user information in this page
+if ( isset($_POST['userName']) ) {
+    $userName = $_POST['userName'];
+    $userEmail = $_POST['email'];
+    $userBirthday = $_POST['birthday'];
+    // $sql = "UPDATE `member` SET `name` = '$userName', `e-mail` = '$userEmail', `birthday` = '$userBirthday' WHERE `mId` = '$user_id'";
+    // sqlQry($sql);
+}
+?>
+
+<?php
 include "header.php";
 include "color_ramp.php";
 ?>
 <head>
     <link rel="stylesheet" href="css/member.css">
+    <script src="js/member_page.js"></script>
 </head>
 
 <body>
@@ -30,40 +43,31 @@ include "color_ramp.php";
         <div class="col-lg-8 col-md-10 col-sm-12 center roundBorder padding">
             <!-- make a member information block -->
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12 textCenter">
                     <img src="images/user/user-thumb.jpg" class="img-fluid roundBorder">
                 </div>
-                <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="col-lg-8 col-md-8 col-sm-12 textCenter">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <h2>會員資料</h2>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
                             <label>姓名</label><br>
-                            <input type="text" value="<?php echo $userName?>" size="5">
-                        </div>
-                        <div class="col-lg-8 col-md-8 col-sm-12">
-                            <p>
+                            <input type="text" value="<?php echo $userName?>" size="5" name="userName">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
                             <label>電子郵件</label><br>
-                            <input type="text" value="<?php echo $userEmail?>" size="30">
-                        </div>
-                        <div class="col-lg-8 col-md-8 col-sm-12">
-                            <p>
+                            <input type="text" value="<?php echo $userEmail?>" size="30" name="email">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
                             <label>生日</label><br>
-                            <input type="date" value="<?php echo $userBirthday?>">
-                        </div>
-                        <div class="col-lg-8 col-md-8 col-sm-12">
-                            <p>
+                            <input type="date" value="<?php echo $userBirthday?>" name="birthday">
                         </div>
                     </div>
                 </div>
@@ -72,11 +76,11 @@ include "color_ramp.php";
             <!-- Button -->
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12">
-                    <input type="submit" class="btn btn-success btn-block" value="修改資料">
+                    <input type="submit" class="btn btn-success btn-block" value="修改資料" onclick="saveEdit()">
                 </div>
                 <p></p>
                 <div class="col-lg-6 col-md-6 col-sm-12">
-                    <input type="reset" class="btn btn-danger btn-block" value="取消修改">
+                    <input type="reset" class="btn btn-danger btn-block" value="取消修改" onclick="cancelEdit()">
                 </div>
             </div>
         </div>
