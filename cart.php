@@ -1,8 +1,6 @@
 <?php
-include "cookie.php";
-
-$cart = getCookieOrDefault("cart", 0);
-setcookie("cart", $cart+1, time()+10);
+session_start();
+$count = $_SESSION['mId'];
 ?>
 
 <!DOCTYPE html>
@@ -13,39 +11,15 @@ setcookie("cart", $cart+1, time()+10);
   <meta charset="utf-8">
   <title>Appetite 購物車</title>
 
-  <!-- ** Mobile Specific Metas ** -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Agency HTML Template">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="author" content="Themefisher">
-  <meta name="generator" content="Themefisher Classified Marketplace Template v1.0">
-  
-  <!-- theme meta -->
-  <meta name="theme-name" content="classimax" />
-
-  <!-- favicon -->
-  <link href="images/favicon.png" rel="shortcut icon">
-
-  <!-- 
-  Essential stylesheets
-  =====================================-->
-  <link href="plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <link href="plugins/bootstrap/bootstrap-slider.css" rel="stylesheet">
-  <link href="plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="plugins/slick/slick.css" rel="stylesheet">
-  <link href="plugins/slick/slick-theme.css" rel="stylesheet">
-  <link href="plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-  
-  <link href="css/style.css" rel="stylesheet">
   <?php
   include "color_ramp.php";
   ?>
 
 </head>
-<body>
 <?php
 include "header.php";
 ?>
+<body>
 
 <div class="col-md-10" style="margin:auto; background-color:#FCFCFC; padding:20px;">
   <h1>您的購物車</h1>
@@ -59,7 +33,7 @@ include "header.php";
     while($row = mysqli_fetch_assoc($result)){
       $name = $row['pName'];
       $price = $row['unitPrice'];
-      $desc = $row['category'];
+      $desc = $row['description'];
       // $imgPath = $row['imgPath'];
       // $rating = $row['rating'];
       echo
@@ -84,8 +58,8 @@ include "header.php";
                 </ul>
               </div>
               單價 <span class='font-weight-bolder text-monospace'>$price</span> 元<br>
-              總共<input type='number' min='0' style='width: 40px;' value='".$cart."'>份<br>
-              小記 <span class='font-weight-bolder text-monospace'>".$price*2 ."</span> 元<br>
+              總共<input type='number' min='0' style='width: 40px;' value='$count' onchange='updateCost(this)'>份<br>
+              小記 <span class='font-weight-bolder text-monospace'>".$price*$count ."</span> 元<br>
               <button class='btn btn-warning btn-sm' style='align-self: center'>取消購買</button>
             </div>
           </div>
@@ -96,7 +70,7 @@ include "header.php";
   </div>
   <!-- 總結一些數據 -->
   <br><br><br>
-  <h1 class="d-flex justify-content-center">總計共：[多少]元</h1>
+  <h1 class="d-flex justify-content-center">總計共：<span id="totalCost"></span>元</h1>
   <!-- 立即購買 -->
   <div style="width: 50%; margin:auto; display: flex; justify-content: space-around;">
     <button class="btn btn-danger">全數移出購物車</button>
@@ -124,5 +98,7 @@ include "footer.php";
 <script src="plugins/google-map/map.js" defer></script>
 
 <script src="js/script.js"></script>
+
+<script src="js/cart.js"></script>
 </body>
 </html>
