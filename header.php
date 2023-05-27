@@ -1,6 +1,7 @@
 <?php
 echo"
 <!-- ** Mobile Specific Metas ** -->
+<head>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='description' content='Agency HTML Template'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=5.0'>
@@ -24,6 +25,7 @@ echo"
   <link href='plugins/jquery-nice-select/css/nice-select.css' rel='stylesheet'>
   
   <link href='css/style.css' rel='stylesheet'>
+</head>
 ";
 
 echo"
@@ -42,66 +44,11 @@ echo"
 					<div class='collapse navbar-collapse' id='navbarSupportedContent'>
 						<ul class='navbar-nav ml-auto main-nav '>
 							<li class='nav-item active'>
-								<a style='color:black;' class='nav-link' href='index.php'>Home</a>
+								<a style='color:black;' class='nav-link' href='index.php'><b>首頁</b></a>
 							</li>
-							<li class='nav-item dropdown dropdown-slide @@dashboard'>
-								<a style='color:black;' class='nav-link dropdown-toggle' data-toggle='dropdown' href='#!'>個人資料<span><i class='fa fa-angle-down'></i></span>
-								</a>
-
-								<!-- Dropdown list -->
-								<ul class='dropdown-menu'>
-									<li><a class='dropdown-item @@dashboardPage' href='dashboard.html'>Dashboard</a></li>
-									<li><a class='dropdown-item @@dashboardMyAds' href='dashboard-my-ads.html'>Dashboard My Ads</a></li>
-									<li><a class='dropdown-item @@dashboardFavouriteAds' href='dashboard-favourite-ads.html'>Dashboard Favourite Ads</a></li>
-									<li><a class='dropdown-item @@dashboardArchivedAds' href='dashboard-archived-ads.html'>Dashboard Archived Ads</a></li>
-									<li><a class='dropdown-item @@dashboardPendingAds' href='dashboard-pending-ads.html'>Dashboard Pending Ads</a></li>
-									
-									<li class='dropdown dropdown-submenu dropright'>
-										<a class='dropdown-item dropdown-toggle' href='#!' id='dropdown0501' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Sub Menu</a>
-					
-										<ul class='dropdown-menu' aria-labelledby='dropdown0501'>
-											<li><a class='dropdown-item' href='index.php'>Submenu 01</a></li>
-											<li><a class='dropdown-item' href='index.php'>Submenu 02</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li class='nav-item dropdown dropdown-slide @@pages'>
-								<a style='color:black;' class='nav-link dropdown-toggle' href='#' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-									所有商品 <span><i class='fa fa-angle-down'></i></span>
-								</a>
-								<!-- Dropdown list -->
-								<ul class='dropdown-menu'>
-									<li><a class='dropdown-item @@about' href='about-us.html'>About Us</a></li>
-									<li><a class='dropdown-item @@contact' href='contact-us.html'>Contact Us</a></li>
-									<li><a class='dropdown-item @@profile' href='user-profile.html'>User Profile</a></li>
-									<li><a class='dropdown-item @@404' href='404.html'>404 Page</a></li>
-									<li><a class='dropdown-item @@package' href='package.html'>Package</a></li>
-									<li><a class='dropdown-item @@singlePage' href='single.html'>Single Page</a></li>
-									<li><a class='dropdown-item @@store' href='store.html'>Store Single</a></li>
-									<li><a class='dropdown-item @@blog' href='blog.html'>Blog</a></li>
-									<li><a class='dropdown-item @@singleBlog' href='single-blog.html'>Blog Details</a></li>
-									<li><a class='dropdown-item @@terms' href='terms-condition.html'>Terms &amp; Conditions</a></li>
-								</ul>
-							</li>
-							<li class='nav-item dropdown dropdown-slide @@listing'>
-								<a style='color:black;' class='nav-link dropdown-toggle' href='#!' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-									Listing <span><i class='fa fa-angle-down'></i></span>
-								</a>
-								<!-- Dropdown list -->
-								<ul class='dropdown-menu'>
-									<li><a class='dropdown-item @@category' href='category.html'>Ad-Gird View</a></li>
-									<li><a class='dropdown-item @@listView' href='ad-list-view.html'>Ad-List View</a></li>
-									
-									<li class='dropdown dropdown-submenu dropleft'>
-										<a class='dropdown-item dropdown-toggle' href='#!' id='dropdown0201' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Sub Menu</a>
-					
-										<ul class='dropdown-menu' aria-labelledby='dropdown0201'>
-											<li><a class='dropdown-item' href='index.php'>Submenu 01</a></li>
-											<li><a class='dropdown-item' href='index.php'>Submenu 02</a></li>
-										</ul>
-									</li>
-								</ul>
+							
+							<li class='nav-item'>
+								<a style='color:black;' class='nav-link' href='all_goods.php'><b>所有商品</b></a>
 							</li>
 						</ul>
 						<ul class='navbar-nav ml-auto mt-10'>

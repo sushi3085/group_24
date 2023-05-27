@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 
 <!--
@@ -21,12 +25,12 @@
 
 </head>
 
-<body class="body-wrapper">
-
-
 <?php
 include 'header.php';
 ?>
+<body class="body-wrapper">
+
+
 
 <!--===============================
 =            Hero Area            =

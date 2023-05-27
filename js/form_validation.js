@@ -57,4 +57,13 @@ $(document).ready(function ($) {
                 error.insertAfter($("#checkpswd-error"))
         }
     });
+
+    $("form").submit(function (e) {
+        if($(this).valid() && $("#registering").prop("checked")){
+            alert("表單成功送出！");
+            return true;
+        }
+        e.preventDefault();
+        return false;
+    });
 });

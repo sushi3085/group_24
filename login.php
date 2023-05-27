@@ -22,7 +22,7 @@ if( isset($_POST["mail"]) && isset($_POST["pswd"])){
     header("Location: member_page.php");
     exit();
   }else{// log in failed
-    echo "<script>alert('登入失敗\n請確認帳號密碼輸入正確\n或先註冊！');</script>";
+    echo "<script>alert('登入失敗\\n請確認帳號密碼輸入正確\\n或先註冊！');</script>";
   }
 }
 
@@ -38,7 +38,7 @@ include "header.php";
   ?>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
-  <script src="js/form_validation.js"></script>
+  <script src="js/login_validation.js"></script>
 
 </head>
 
@@ -61,9 +61,9 @@ include "header.php";
                 <input type="checkbox" id="keep-me-logged-in">
                 <label for="keep-me-logged-in" class="pt-3 pb-2">保持登入狀態</label>
               </div>
-              <button type="submit" class="btn btn-primary font-weight-bold mt-3 btn-wide">登入喵</button>
+              <input type="submit" class="btn btn-primary font-weight-bold mt-3 btn-wide" value="登入喵">
               <a class="mt-3 d-block text-primary" href="#!">汪記密碼喵？</a>
-              <a class="mt-3 d-inline-block text-primary" href="register.html">還沒註冊汪？</a>
+              <a class="mt-3 d-inline-block text-primary" href="register.php">還沒註冊汪？</a>
             </fieldset>
           </form>
         </div>

@@ -1,3 +1,28 @@
+<?php
+session_start();
+// check if user is registering, if so, insert into database
+// and redirect to login page
+if ( isset($_POST['registering']) ) {
+    include "db_conn.php";
+    // first check if the email is already registered
+    $result = sqlQry("SELECT * FROM `member` WHERE `e-mail` = '$_POST[mail]'");
+    if ( mysqli_num_rows($result) > 0 ) {
+        echo "<script>alert('此信箱已註冊過，請使用其他信箱註冊'); location.href = 'register.php';</script>";
+        exit();
+    }
+    // if not, insert into database
+    $name = $_POST['name'];
+    $mail = $_POST['mail'];
+    $pswd = $_POST['pswd'];
+    $birth = $_POST['birthday'];
+    $sql = "INSERT INTO `member` (`name`, `e-mail`, `pswd`, `birth`, `phone`) VALUES ('$name', '$mail', '$pswd', '$birth', 123213123)";
+    sqlQry($sql);
+    // echo "<script>alert('註冊成功，請重新登入');</script>";
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 
 <!--
@@ -24,12 +49,12 @@
 
 </head>
 
-<body class="body-wrapper">
-
-
 <?php
 include "header.php";
 ?>
+<body class="body-wrapper">
+
+
 
 <section class="login py-5 border-top-1">
   <div class="container">
@@ -37,7 +62,7 @@ include "header.php";
       <div class="col-lg-5 col-md-8 align-item-center">
         <div class="border border">
           <h3 class="bg-gray p-4">註冊表單</h3>
-          <form action="#" id="form">
+          <form action="register.php" id="form" method="POST">
             <fieldset class="p-4">
               <label style="color:black;" for="name"><b>姓名</b></label>
               <label id="name-error" class="error" for="name"></label>
@@ -61,11 +86,11 @@ include "header.php";
               
               <div class="loggedin-forgot d-inline-flex my-3">
                 <input type="checkbox" id="registering" class="mt-1" name="registering">
-                <label style="color:black; margin: 0;" for="registering" class="px-2">註冊即代表您同意您是一位喜歡毛小孩的善心人士。</label>
+                <label style="color:black; margin: 0;" for="registering" class="px-2">您同意您是一位喜歡毛小孩的善心人士。</label>
               </div>
               <label id="registering-error" class="error" for="registering"></label>
               <br>
-              <button type="submit" class="btn btn-primary font-weight-bold mt-3">送出表單並註冊</button>
+              <input type="submit" class="btn btn-primary font-weight-bold mt-3" value="送出表單並註冊">
             </fieldset>
           </form>
         </div>
