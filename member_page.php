@@ -1,4 +1,5 @@
 <?php
+session_start();
 // check if user is logged in, else redirect to login page
 // if ( !isset($_SESSION['user_id']) ) {
 //     header("Location: login.php");
@@ -8,12 +9,12 @@
 include "db_conn.php";
 // read user information from database
 // $user_id = $_SESSION['user_id'];
-$result = sqlQry("SELECT * FROM `member` WHERE `mId` = 'A00001'");
+$result = sqlQry("SELECT * FROM `member` WHERE `mId` = '$_SESSION[mId]'");
 while($row = mysqli_fetch_assoc($result)){
     $userName = $row['name'];
     $userEmail = $row['e-mail'];
-    // $userBirthday = $row['birthday'];
-    $userBirthday = "1999-12-12";
+    $userBirthday = $row['birth'];
+    $userPassword = $row['pswd'];
 }
 ?>
 
@@ -21,11 +22,13 @@ while($row = mysqli_fetch_assoc($result)){
 // check if user is saving the change, if so, update database
 // and update the user information in this page
 if ( isset($_POST['userName']) ) {
+    $originName = $_POST['originName'];
     $userName = $_POST['userName'];
     $userEmail = $_POST['email'];
     $userBirthday = $_POST['birthday'];
-    // $sql = "UPDATE `member` SET `name` = '$userName', `e-mail` = '$userEmail', `birthday` = '$userBirthday' WHERE `mId` = '$user_id'";
-    // sqlQry($sql);
+    // TODO: implement password change
+    $sql = "UPDATE `member` SET `name` = '$userName', `e-mail` = '$userEmail', `birth` = '$userBirthday' WHERE `name` = '$originName'";
+    sqlQry($sql);
 }
 ?>
 
@@ -55,6 +58,7 @@ include "color_ramp.php";
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <label>姓名</label><br>
+                            <input type="text" value="<?php echo $userName?>" name="originName" hidden>
                             <input type="text" value="<?php echo $userName?>" size="5" name="userName">
                         </div>
                     </div>
@@ -68,6 +72,12 @@ include "color_ramp.php";
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <label>生日</label><br>
                             <input type="date" value="<?php echo $userBirthday?>" name="birthday">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <label>密碼</label><br>
+                            <input type="password" value="<?php echo $userPassword?>" name="password" minlength="8">
                         </div>
                     </div>
                 </div>

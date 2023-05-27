@@ -1,6 +1,9 @@
 $(document).ready(function ($) {
     $("form").validate({
         rules:{
+            "name":{
+                required: true,
+            },
             "mail":{
                 required: true,
                 email: true,
@@ -21,6 +24,9 @@ $(document).ready(function ($) {
             }
         },
         messages:{
+            "name":{
+                required:"請輸入姓名作為使用者名稱",
+            },
             "mail":{
                 required:"請輸入電子郵件",
                 email:"請輸入正確的電子郵件",
@@ -41,6 +47,8 @@ $(document).ready(function ($) {
             }
         },
         errorPlacement: function (error, element) {
+            if(element.attr("name") == "name")
+                error.insertAfter($("#name-error"))
             if(element.attr("name") == "mail")
                 error.insertAfter($("#mail-error"))
             if(element.attr("name") == "pswd")

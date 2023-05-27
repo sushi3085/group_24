@@ -39,6 +39,10 @@ include "header.php";
           <h3 class="bg-gray p-4">註冊表單</h3>
           <form action="#" id="form">
             <fieldset class="p-4">
+              <label style="color:black;" for="name"><b>姓名</b></label>
+              <label id="name-error" class="error" for="name"></label>
+              <input name="name"class="form-control mb-3" type="text" placeholder="使用者名稱(必填)" required>
+
               <label style="color:black;" for="mail"><b>電子郵件</b></label>
               <label id="mail-error" class="error" for="mail"></label>
               <input name="mail"class="form-control mb-3" type="email" placeholder="電子郵件(必填)" required>
