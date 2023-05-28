@@ -38,6 +38,8 @@ include "color_ramp.php";
 ?>
 <head>
     <link rel="stylesheet" href="css/member.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
     <script src="js/member_page.js"></script>
 </head>
 
@@ -46,10 +48,10 @@ include "color_ramp.php";
         <div class="col-lg-8 col-md-10 col-sm-12 center roundBorder padding">
             <!-- make a member information block -->
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12 textCenter">
+                <div class="col-lg-5 col-md-5 col-sm-12 vcenter hcenter">
                     <img src="images/user/user-thumb.jpg" class="img-fluid roundBorder">
                 </div>
-                <div class="col-lg-8 col-md-8 col-sm-12 textCenter">
+                <div class="col-lg-7 col-md-7 col-sm-12 textCenter">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <h2>會員資料</h2>
@@ -57,27 +59,33 @@ include "color_ramp.php";
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <label>姓名</label><br>
+                            <label>姓名</label><label id="userName-error" class="error"></label><br>
                             <input type="text" value="<?php echo $userName?>" name="originName" hidden>
                             <input type="text" value="<?php echo $userName?>" size="5" name="userName">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <label>電子郵件</label><br>
-                            <input type="text" value="<?php echo $userEmail?>" size="30" name="email">
+                            <label>電子郵件</label><label id="email-error" class="error"></label><br>
+                            <input type="email" value="<?php echo $userEmail?>" size="30" name="email" require>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <label>生日</label><br>
+                            <label>生日</label><label id="birthday-error" class="error"></label><br>
                             <input type="date" value="<?php echo $userBirthday?>" name="birthday">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <label>密碼</label><br>
+                            <label>密碼</label><label id="password-error" class="error"></label><br>
                             <input type="password" value="<?php echo $userPassword?>" name="password" minlength="8">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <label>確認密碼</label><label id="passwordConf-error" class="error"></label><br>
+                            <input type="password" value="<?php echo $userPassword?>" name="passwordConf" minlength="8">
                         </div>
                     </div>
                 </div>
@@ -86,7 +94,7 @@ include "color_ramp.php";
             <!-- Button -->
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12">
-                    <input type="submit" class="btn btn-success btn-block" value="修改資料" onclick="saveEdit()">
+                    <input type="submit" class="btn btn-success btn-block" value="修改資料">
                 </div>
                 <p></p>
                 <div class="col-lg-6 col-md-6 col-sm-12">

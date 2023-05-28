@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $count = $_SESSION['mId'];
 ?>
 
@@ -26,14 +27,19 @@ include "header.php";
   <div style="display:flex; flex-wrap: wrap; align-items: flex-start;">
     <!-- 購物車裡面的單個產品會長這樣 -->
     <?php
+    // extract cart data from database
     include "db_conn.php";
-    // get product info from db
-    $result = sqlQry("SELECT * FROM `product`");
+    $result = sqlQry("SELECT * FROM `cart` WHERE `mId` = '$_SESSION[mId]'");
 
     while($row = mysqli_fetch_assoc($result)){
-      $name = $row['pName'];
-      $price = $row['unitPrice'];
-      $desc = $row['description'];
+      $pNo = $row['pNo'];
+      $quantity = $row['quantity'];
+      // query the product table to get product info
+      $result2 = sqlQry("SELECT * FROM `product` WHERE `pNo` = '$pNo'");
+      $productRow = mysqli_fetch_assoc($result2);
+      $name = $productRow['pName'];
+      $price = $productRow['unitPrice'];
+      $desc = $productRow['description'];
       // $imgPath = $row['imgPath'];
       // $rating = $row['rating'];
       echo
@@ -46,7 +52,7 @@ include "header.php";
           </div>
           <div class='card-body'>
             <h4 class='card-title'><a href='single.html'>$name</a></h4>
-            <p class='card-text'>$desc</p>
+            <p class='card-text text-truncate'>$desc</p>
             <div style='text-align: center;'>
               <div class='product-ratings'>
                 <ul class='list-inline'>
@@ -74,7 +80,7 @@ include "header.php";
   <!-- 立即購買 -->
   <div style="width: 50%; margin:auto; display: flex; justify-content: space-around;">
     <button class="btn btn-danger">全數移出購物車</button>
-    <button class="btn btn-success" disabled>購買全部</button>
+    <button class="btn btn-success">購買全部</button>
   </div>
 </div>
 </div>
