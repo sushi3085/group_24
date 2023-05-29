@@ -1,6 +1,6 @@
 <?php
 
-$link = mysqli_connect('localhost','root','root123456','a0407');
+$link = mysqli_connect('localhost','root','root123456','group_24');
 
 if ( !$link ) {
     echo "連結錯誤代碼: ".mysqli_connect_errno()."<br>";//顯示錯誤代碼
