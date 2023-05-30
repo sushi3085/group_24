@@ -19,5 +19,4 @@ function sqlQry($sql){
     return $result;
 }
 
-$result = mysqli_query($link,"SELECT * FROM `cart` WHERE `quantity` = 3");
 ?>

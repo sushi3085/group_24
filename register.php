@@ -70,6 +70,7 @@ include "header.php";
 
               <label style="color:black;" for="mail"><b>電子郵件</b></label>
               <label id="mail-error" class="error" for="mail"></label>
+              <label id="msg_show" class="error"></label>
               <input name="mail"class="form-control mb-3" type="email" placeholder="電子郵件(必填)" required>
 
               <label style="color:black;" for="pswd"><b>密碼</b></label>

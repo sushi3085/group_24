@@ -67,3 +67,26 @@ $(document).ready(function ($) {
         return false;
     });
 });
+
+// Ajax validate user name is exist
+function checkUserExist () {
+    var mail = $('input[name="mail"]').val();
+    $.ajax({
+        type:"POST",
+        url:"user_exist_check.php",
+        data:{
+            mail:mail
+        },
+        dataType:"text",
+        success: function(response){
+            if(response == "exist") $("#msg_show").html("帳號已存在！");
+            else $("#msg_show").html("");
+        }
+    });
+}
+
+$(function(){
+    $("input[name='mail']").keyup(function(){
+        checkUserExist();
+    });
+})
