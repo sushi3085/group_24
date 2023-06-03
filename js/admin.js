@@ -65,6 +65,24 @@ function showModal(button) {
         }
     }else if(displayFormIndex == 1){
         // TODO: fiinish this part
+        let goodsId = $(td[0]).text();
+        let goodsName = $(td[1]).text();
+        let goodsPrice = $(td[2]).text();
+        let goodsCategory = $(td[3]).text();
+        let goodsImgPath = $(td[4]).text();
+        let goodsState = $(td[5]).text();
+        let goodsDescription = $(td[6]).text();
+        let dataArr = [
+            goodsId, goodsName, goodsPrice,
+            goodsCategory, goodsImgPath, goodsState
+        ];
+
+        let curForm = $("form")[1];
+        $(curForm).find("input").each((index, input) => {
+            if(index >= dataArr.length) return;
+            $(input).val(dataArr[index]);
+        });
+        $("textarea#goodsDescription").val(goodsDescription);
     }else{
         // TODO: finish this part
     }
@@ -119,8 +137,39 @@ function submitEdit(){
             },
         });
     }
-    else if(displayFormIndex == 1) editType = "goods";
-    else if(displayFormIndex == 2) editType = "order";
+    else if(displayFormIndex == 1){
+        editType = "goods";
+        let form = $("form")[1];
+        let inputs = $(form).find("input");
+        let textarea = $(form).find("textarea");
+        $.ajax({
+            url: "adminEditHandle.php",
+            type: "POST",
+            data: {
+                "editType": editType,
+                "goodsId": inputs[0].value,
+                "goodsName": inputs[1].value,
+                "goodsPrice": inputs[2].value,
+                "goodsCategory": inputs[3].value,
+                "goodsImgPath": inputs[4].value,
+                "goodsState": inputs[5].value,
+                "goodsDescription": textarea[0].value,
+            },
+            success: function (data) {
+                if(data == "success"){
+                    alert("修改成功");
+                    location.reload();
+                }
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    else if(displayFormIndex == 2) {
+        editType = "order";
+    }
 
     closeModal();
 }

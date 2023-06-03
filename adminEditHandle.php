@@ -19,4 +19,16 @@ if($editType == "member"){
     if($result) echo "success";
     else echo "fail";
 }
+
+if($editType == "goods"){
+    $goodsId = $_POST["goodsId"];
+    $goodsName = $_POST["goodsName"];
+    $goodsPrice = $_POST["goodsPrice"];
+    $goodsCategory = $_POST["goodsCategory"];
+    $goodsImgPath = $_POST["goodsImgPath"];
+    $goodsState = $_POST["goodsState"];
+    $goodsDescription = $_POST["goodsDescription"];
+    
+    // $result = sqlQry("UPDATE products SET pName='$goodsName', price='$goodsPrice', category='$goodsCategory', imgPath='$goodsImgPath', state='$goodsState', description='$goodsDescription' WHERE pId='$goodsId'");
+}
 ?>

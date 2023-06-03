@@ -43,7 +43,7 @@ include "header.php";
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table id="myTable" class="display text-center mb-3" border=1>
+                                    <table id="myTable" class="display text-center mb-3 mx-auto" border=1>
                                         <thead>
                                             <tr>
                                                 <th>會員編號</th>
@@ -93,7 +93,7 @@ include "header.php";
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table id="myTable2" class="display text-center mb-3" border=1>
+                                    <table id="myTable2" class="display text-center mb-3 mx-auto" border=1>
                                         <thead>
                                             <tr>
                                                 <th>商品編號</th>
@@ -102,23 +102,23 @@ include "header.php";
                                                 <th>商品類別</th>
                                                 <th>商品圖片</th>
                                                 <th>商品狀態</th>
+                                                <th>商品描述</th>
                                                 <th colspan="2">操作</th>
                                             </tr>
                                         </thead>
                                         <?php
                                         // TODO: finish this
-                                        $result = sqlQry("SELECT * FROM `member`");
+                                        $result = sqlQry("SELECT * FROM `product`");
                                         while($row = mysqli_fetch_assoc($result)){
                                             echo "<tr>";
                                             echo "
-                                            <td>".$row['mId']."</td>
-                                            <td>".$row['name']."</td>
-                                            <td>".$row['e-mail']."</td>
-                                            <td></td>
-                                            <td>".$row['phone']."</td>
-                                            <td></td>
-                                            <td>".$row['birth']."</td>
-                                            <td></td>
+                                            <td>".$row['pNo']."</td>
+                                            <td>".$row['pName']."</td>
+                                            <td>".$row['unitPrice']."</td>
+                                            <td>".$row['category']."</td>
+                                            <td>".$row['imgPath']."</td>
+                                            <td>".$row['state']."</td>
+                                            <td class='text-truncate' style='max-width:300px'>".$row["description"]."</td>
                                             <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editModal' onclick='showModal(this)'>編輯</button></td>
                                             <td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteModal'>刪除</button></td>
                                             ";
@@ -144,16 +144,32 @@ include "header.php";
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table id="myTable3" class="display text-center mb-3" border=1>
+                                    <table id="myTable3" class="display text-center mb-3 mx-auto" border=1>
                                         <thead>
                                             <tr>
                                                 <th>訂單編號</th>
-                                                <th>會員編號</th>
-                                                <th>訂單日期</th>
+                                                <th>下訂會員</th>
+                                                <th>產品名稱</th>
                                                 <th>訂單狀態</th>
-                                                <th>訂單編輯</th>
                                                 <th>訂單刪除</th>
                                             </tr>
+                                            <?php
+                                            $result = sqlQry("SELECT * FROM `order`");
+                                            while($row = mysqli_fetch_assoc($result)){
+                                                $orderId = $row['orderId'];
+                                                $productName = mysqli_fetch_assoc(sqlQry("SELECT * FROM `product` WHERE `pNo` = '".$row['pNo']."'"))['pName'];
+                                                $memberName = mysqli_fetch_assoc(sqlQry("SELECT * FROM `member` WHERE `mId` = '".$row['mId']."'"))['name'];
+                                                echo "<tr>";
+                                                echo "
+                                                <td>".$row['orderId']."</td>
+                                                <td>$memberName</td>
+                                                <td>$productName</td>
+                                                <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editModal' onclick='showModal(this)'>編輯</button></td>
+                                                <td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteModal'>刪除</button></td>
+                                                ";
+                                                echo "</tr>";
+                                            }
+                                            ?>
                                         </thead>
                                     </table>
                                 </div>
@@ -181,8 +197,16 @@ include "header.php";
     </form>
 
     <form id="goodsForm">
-        修改產品資料：<br>
-        <label>會員ID</label>
+        修改商品資料：<br>
+        <input type="text" value="" hidden disabled>
+        <label>商品名稱：</label><input type="text" value="" id="goodsName" name="name"><br>
+        <label>商品價格：</label><input type="number" value="" id="goodsPrice" name="price"><br>
+        <label>商品類別：</label><input type="text" value="" id="goodsCategory" name="category"><br>
+        <label>商品圖片：</label><input type="text" value="" id="goodsImg" name="img"><br>
+        <label>商品狀態：</label><input type="text" value="" id="goodsState" name="state"><br>
+        <div class="mb-5" style="display:flex; align:center; justify-content: center">
+            <label>商品描述：</label><textarea col="20" value="" id="goodsDescription" name="description"></textarea><br>
+        </div>
         <input type="button" class="btn btn-success" onclick="submitEdit()" value="送出編輯">
         <input type="button" class="btn btn-danger" onclick="closeModal()" value="退出編輯">
     </form>
