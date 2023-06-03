@@ -8,6 +8,7 @@ include "header.php";
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
     <script src="js/admin.js"></script>
+    <link rel="stylesheet" href="css/admin.css">
 </head>
 
 <body>
@@ -17,21 +18,21 @@ include "header.php";
             <div class="col-md-2 mt-3">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <!-- 會員管理 -->
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
+                    <a class="nav-link active" id="memberSectionBtn" data-toggle="pill" href="#v-pills-home"
                         role="tab" aria-controls="v-pills-home" aria-selected="true">會員管理</a>
                     <!-- 商品管理 -->
-                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
+                    <a class="nav-link" id="goodsSectionBtn" data-toggle="pill" href="#v-pills-profile"
                         role="tab" aria-controls="v-pills-profile" aria-selected="false">商品管理</a>
                     <!-- 訂單管理 -->
-                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages"
+                    <a class="nav-link" id="orderSectionBtn" data-toggle="pill" href="#v-pills-messages"
                         role="tab" aria-controls="v-pills-messages" aria-selected="false">訂單管理</a>
                 </div>
             </div>
             <div class="col-md-10 mt-3">
                 <div class="tab-content" id="v-pills-tabContent">
                     <!-- 會員管理 -->
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-                        aria-labelledby="v-pills-home-tab">
+                    <div class="tab-pane fade show active" id="memberManageSection" role="tabpanel"
+                        aria-labelledby="memberSectionBtn">
                         <!-- 會員管理 -->
                         <div class="container-fluid">
                             <div class="row">
@@ -42,7 +43,7 @@ include "header.php";
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table id="myTable" class="display text-center">
+                                    <table id="myTable" class="display text-center mb-3" border=1>
                                         <thead>
                                             <tr>
                                                 <th>會員編號</th>
@@ -52,9 +53,7 @@ include "header.php";
                                                 <th>會員電話</th>
                                                 <th>會員地址</th>
                                                 <th>會員生日</th>
-                                                <th>會員狀態</th>
-                                                <th>會員編輯</th>
-                                                <th>會員刪除</th>
+                                                <th colspan="2">操作</th>
                                             </tr>
                                         </thead>
                                         <?php
@@ -67,10 +66,9 @@ include "header.php";
                                             <td>".$row['e-mail']."</td>
                                             <td></td>
                                             <td>".$row['phone']."</td>
-                                            <td></td>
+                                            <td class='text-truncate'></td>
                                             <td>".$row['birth']."</td>
-                                            <td></td>
-                                            <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editModal'>編輯</button></td>
+                                            <td><button type='button' class='btn btn-primary' onclick='showModal(this)'>編輯</button></td>
                                             <td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteModal'>刪除</button></td>
                                             ";
                                             echo "</tr>";
@@ -83,8 +81,8 @@ include "header.php";
                         <!-- 會員管理 -->
                     </div>
                     <!-- 商品管理 -->
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
-                        aria-labelledby="v-pills-profile-tab">
+                    <div class="tab-pane fade" id="goodsManageSection" role="tabpanel"
+                        aria-labelledby="goodsSectionBtn">
                         <!-- 商品管理 -->
                         <div class="container-fluid">
                             <div class="row">
@@ -95,7 +93,7 @@ include "header.php";
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table id="myTable2" class="display text-center">
+                                    <table id="myTable2" class="display text-center mb-3" border=1>
                                         <thead>
                                             <tr>
                                                 <th>商品編號</th>
@@ -104,11 +102,11 @@ include "header.php";
                                                 <th>商品類別</th>
                                                 <th>商品圖片</th>
                                                 <th>商品狀態</th>
-                                                <th>商品編輯</th>
-                                                <th>商品刪除</th>
+                                                <th colspan="2">操作</th>
                                             </tr>
                                         </thead>
                                         <?php
+                                        // TODO: finish this
                                         $result = sqlQry("SELECT * FROM `member`");
                                         while($row = mysqli_fetch_assoc($result)){
                                             echo "<tr>";
@@ -121,7 +119,7 @@ include "header.php";
                                             <td></td>
                                             <td>".$row['birth']."</td>
                                             <td></td>
-                                            <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editModal'>編輯</button></td>
+                                            <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editModal' onclick='showModal(this)'>編輯</button></td>
                                             <td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteModal'>刪除</button></td>
                                             ";
                                             echo "</tr>";
@@ -134,8 +132,8 @@ include "header.php";
                         <!-- 商品管理 -->
                     </div>
                     <!-- 訂單管理 -->
-                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
-                        aria-labelledby="v-pills-messages-tab">
+                    <div class="tab-pane fade" id="orderManageSection" role="tabpanel"
+                        aria-labelledby="orderSectionBtn">
                         <!-- 訂單管理 -->
                         <div class="container-fluid">
                             <div class="row">
@@ -146,7 +144,7 @@ include "header.php";
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table id="myTable3" class="display text-center">
+                                    <table id="myTable3" class="display text-center mb-3" border=1>
                                         <thead>
                                             <tr>
                                                 <th>訂單編號</th>
@@ -167,6 +165,34 @@ include "header.php";
             </div>
         </div>
     </div>
+
+<dialog close class="text-center">
+    <!-- use Ajax to post edit information to "adminEditHandle.php" -->
+    <form id="memberForm">
+        修改會員資料：<br>
+        <input type="number" value="" hidden disabled>
+        <label>會員名稱：</label><input type="text" value="" id="memberName"  name="name"><br>
+        <label>會員帳號：</label><input type="mail" value="" id="memberEmail" name="email"><br>
+        <label>會員電話：</label><input type="text" value="" id="memberPhone" name="phone"><br>
+        <label>會員地址：</label><input type="text" value="" id="memberAddress" name="address"><br>
+        <label>會員生日：</label><input type="date" value="" id="memberBirthday" name="birthday"><br>
+        <input type="button" class="btn btn-success" onclick="submitEdit()" value="送出編輯">
+        <input type="button" class="btn btn-danger" onclick="closeModal()" value="退出編輯">
+    </form>
+
+    <form id="goodsForm">
+        修改產品資料：<br>
+        <label>會員ID</label>
+        <input type="button" class="btn btn-success" onclick="submitEdit()" value="送出編輯">
+        <input type="button" class="btn btn-danger" onclick="closeModal()" value="退出編輯">
+    </form>
+    
+    <form id="orderForm">
+        <label>會員ID</label>
+        <input type="button" class="btn btn-success" onclick="submitEdit()" value="送出編輯">
+        <input type="button" class="btn btn-danger" onclick="closeModal()" value="退出編輯">
+    </form>
+</dialog>
 </body>
 
 <?php
