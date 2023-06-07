@@ -66,4 +66,26 @@ $(document).ready(function ($) {
             else alert("已取消修改個人資料！");
         }
     });
+
+    $("#mail").keyup(function () {
+        $.ajax({
+            url: "checkEmail.php",
+            type: "POST",
+            data: {
+                email: $("#mail").val(),
+                originEmail: $("#mail").attr("value")
+            },
+            success: function (data) {
+                if (data == "exist") {
+                    $("#mail-exist").text("　此電子郵件已被使用");
+                }
+                else {
+                    $("#mail-exist").text("");
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Error code:" + jqXHR.status);
+            }
+        });
+    });
 });

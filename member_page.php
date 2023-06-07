@@ -66,8 +66,9 @@ include "color_ramp.php";
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <label>電子郵件</label><label id="email-error" class="error"></label><br>
-                            <input type="email" value="<?php echo $userEmail?>" size="30" name="email" require>
+                            <label>電子郵件</label><label id="email-error" class="error"></label>
+                            <label id="mail-exist" class="error"></label><br>
+                            <input id="mail" type="email" value="<?php echo $userEmail?>" size="30" name="email" require>
                         </div>
                     </div>
                     <div class="row">
