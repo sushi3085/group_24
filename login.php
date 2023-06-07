@@ -19,6 +19,8 @@ if( isset($_POST["mail"]) && isset($_POST["pswd"])){
   if($row){
     echo "<script>alert('登入成功！');</script>";
     $_SESSION["mId"] = $row["mId"];
+    $_SESSION["isAdmin"] = $_POST["mail"] == "admin@appetite.com";
+    echo "<script>console.log('isAdmin: ".$_SESSION["isAdmin"]."');</script>";
     header("Location: member_page.php");
     exit();
   }else{// log in failed

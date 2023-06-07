@@ -1,4 +1,9 @@
 <?php
+session_start();
+if(!isset($_SESSION['isAdmin']) || $_SESSION['isAdmin'] != 1){
+    header("Location: login.php");
+    exit();
+}
 include "db_conn.php";
 include "color_ramp.php";
 include "header.php";
@@ -150,8 +155,9 @@ include "header.php";
                                                 <th>訂單編號</th>
                                                 <th>下訂會員</th>
                                                 <th>產品名稱</th>
+                                                <th>產品數量</th>
                                                 <th>訂單狀態</th>
-                                                <th>訂單刪除</th>
+                                                <th>訂單操作</th>
                                             </tr>
                                             <?php
                                             $result = sqlQry("SELECT * FROM `order`");
@@ -164,6 +170,8 @@ include "header.php";
                                                 <td>".$row['orderId']."</td>
                                                 <td>$memberName</td>
                                                 <td>$productName</td>
+                                                <td> -1 </td>
+                                                <td></td>
                                                 <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editModal' onclick='showModal(this)'>編輯</button></td>
                                                 <td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteModal'>刪除</button></td>
                                                 ";
@@ -182,7 +190,7 @@ include "header.php";
         </div>
     </div>
 
-<dialog close class="text-center">
+<dialog close class="text-center" style="height: 80%;">
     <!-- use Ajax to post edit information to "adminEditHandle.php" -->
     <form id="memberForm">
         修改會員資料：<br>
@@ -212,9 +220,31 @@ include "header.php";
     </form>
     
     <form id="orderForm">
-        <label>會員ID</label>
-        <input type="button" class="btn btn-success" onclick="submitEdit()" value="送出編輯">
-        <input type="button" class="btn btn-danger" onclick="closeModal()" value="退出編輯">
+        修改訂單資料：<br>
+        <label>訂單編號：</label><input type="text" value="" id="orderId" disabled><br>
+        <label>下訂會員：</label><input type="text" value="" id="orderMember" disabled><br>
+        <!-- <label>產品名稱：</label><input type="text" value="" id="orderGood"><br> 這裡要改成下拉式選單 -->
+        <label>產品名稱：</label>
+        <select id="orderGoods" class="mb-1">
+            <?php
+            $result = sqlQry("SELECT * FROM `product`");
+            while($row = mysqli_fetch_assoc($result)){
+                echo "<option value='".$row['pName']."'>".$row['pName']."</option>";
+            }
+            ?>
+        </select>
+        <br>
+        <label>產品數量：</label><input type="number" value="" id="orderQuantity"><br>
+        <!-- <label>訂單狀態：</label><input type="text" value="" id="orderState"><br> 這裡要改成下拉式選單 -->
+        <label>訂單狀態：</label>
+        <select id="orderState" class="mb-5">
+            <option value="已出貨">已出貨</option>
+            <option value="未出貨">未出貨</option>
+        </select>
+        <br>
+
+        <input type="button" class="btn btn-success mt-10" onclick="submitEdit()" value="送出編輯">
+        <input type="button" class="btn btn-danger mt-10" onclick="closeModal()" value="退出編輯">
     </form>
 </dialog>
 </body>

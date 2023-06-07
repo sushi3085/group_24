@@ -84,7 +84,20 @@ function showModal(button) {
         });
         $("textarea#goodsDescription").val(goodsDescription);
     }else{
-        // TODO: finish this part
+        let orderId = $(td[0]).text();
+        let orderMemberName = $(td[1]).text();
+        let orderGoodsName = $(td[2]).text();
+        let orderCount = +$(td[3]).text();
+        let dataArr = [orderId, orderMemberName, orderCount];
+
+        let curForm = $("form")[2];
+        $(curForm).find("input").each((index, input) => {
+            if(index >= dataArr.length) return;
+            console.log(input)
+            $(input).val(dataArr[index]);
+        });
+        // deal with selection
+        $("#orderForm > div.nice-select.mb-1").find("span.current").text(orderGoodsName);
     }
 
     $("dialog")[0].showModal();
