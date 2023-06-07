@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-$count = $_SESSION['mId'];
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +31,7 @@ include "header.php";
 
     while($row = mysqli_fetch_assoc($result)){
       $pNo = $row['pNo'];
-      $quantity = $row['quantity'];
+      $amount = $row['amount'];
       // query the product table to get product info
       $result2 = sqlQry("SELECT * FROM `product` WHERE `pNo` = '$pNo'");
       $productRow = mysqli_fetch_assoc($result2);
@@ -45,9 +43,9 @@ include "header.php";
       echo
       "
         <div class='card col-lg-3 col-md-4 col-sm-6'>
-          <div class='thumb-content'>
+          <div class='thumb-content mt-3'>
             <a href='single.html'>
-              <img class='card-img-top img-fluid' src='images/products/products-3.jpg' alt='Card image cap'>
+              <img class='card-img-top img-fluid' src='images/products/$pNo.jpg' style='height:200px'>
             </a>
           </div>
           <div class='card-body'>
@@ -64,8 +62,8 @@ include "header.php";
                 </ul>
               </div>
               單價 <span class='font-weight-bolder text-monospace'>$price</span> 元<br>
-              總共<input type='number' min='0' style='width: 40px;' value='$count' onchange='updateCost(this)'>份<br>
-              小記 <span class='font-weight-bolder text-monospace'>".$price*$count ."</span> 元<br>
+              總共<input type='number' min='0' style='width: 40px;' value='$amount' onchange='updateCost(this)'>份<br>
+              小記 <span class='font-weight-bolder text-monospace'>".$price*$amount ."</span> 元<br>
               <button class='btn btn-warning btn-sm' style='align-self: center'>取消購買</button>
             </div>
           </div>
