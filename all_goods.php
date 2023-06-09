@@ -36,25 +36,25 @@ include "db_conn.php";
 			<div class="col-md-12">
 				<!-- Advance Search -->
 				<div class="advance-search nice-select-white">
-					<form method="POST">
+					<form method="GET">
 						<div class="form-row align-items-center">
-							<div class="form-group col-xl-6 col-lg-5 col-md-6">
-								<input type="text" class="form-control my-2 my-lg-0" id="inputtext4" name="search" placeholder="在這裡輸入您想找的東西！貓貓會幫您找！">
-							</div>
-							<div class="form-group col-lg-4 col-md-6">
-								<select class="w-100 form-control my-2 my-lg-0">
+                            <div class="form-group col-xl-10 col-lg-9 col-md-8">
+                                <input type="text" class="form-control my-2 my-lg-1" id="inputtext4" name="search" placeholder="在這裡輸入您想找的東西！貓貓會幫您找！">
+                            </div>
+                            <!-- <div class="form-group col-lg-4 col-md-6">
+                                <select class="w-100 form-control mt-lg-1 mt-md-2">
                                     <option>排序規則</option>
                                     <option value="1">超~好評</option>
                                     <option value="2">價位低至高</option>
                                     <option value="4">價位高至低</option>
-								</select>
-							</div>
-							<!-- <div class="form-group col-lg-3 col-md-6">
-								<input type="text" class="form-control my-2 my-lg-0" id="inputLocation4" placeholder="Location">
-							</div> -->
-							<div class="form-group col-xl-2 col-lg-3 col-md-6">
-								<input type="submit" class="btn btn-primary active w-100" value="貓貓幫您找！">
-							</div>
+                                </select>
+                            </div> -->
+                            <!-- <div class="form-group col-lg-3 col-md-6">
+                                <input type="text" class="form-control my-2 my-lg-1" id="inputLocation4" placeholder="Location">
+                            </div> -->
+                            <div class="form-group col-xl-2 col-lg-3 col-md-4 align-self-center">
+                                <button type="submit" class="btn active w-100" style="background-color:var(---lightblue)">貓貓幫您找！</button>
+                            </div>
 						</div>
 					</form>
 				</div>
@@ -69,8 +69,8 @@ include "db_conn.php";
 				<div class="search-result bg-gray">
 					<h1>
                         <?php
-                        if(isset($_POST['search'])){
-                            $searchName = $_POST['search'];
+                        if(isset($_GET['search'])){
+                            $searchName = $_GET['search'];
                             echo "\"$searchName\"的搜尋結果：";
                             $result = sqlQry("SELECT * FROM `product` WHERE pName LIKE '%$searchName%' OR description LIKE '%$searchName%'");
                             if($result->num_rows > 0){
@@ -139,7 +139,7 @@ include "db_conn.php";
                 if(isset($_GET['category'])){ // if category
                     $result = sqlQry("SELECT * FROM `product` WHERE category = '".$_GET["category"]."'");
                 }
-                else if(isset($_POST['search'])){ // if search
+                else if(isset($_GET['search'])){ // if search
                     $result = sqlQry("SELECT * FROM `product` WHERE pName LIKE '%$searchName%' OR description LIKE '%$searchName%'");
                 }
                 else{ // not both
@@ -192,7 +192,7 @@ include "db_conn.php";
                                             <br>
                                             <span class='float-lg-right mt-3 mb-3 text-right'>選購數量：<input type='number' min=0 class='w-25' value='0'></span>
                                             <br>
-                                            <button class='float-lg-right btn btn-primary' onclick='addToCart(this,".$row['pNo'].")'>加到購物車</button>
+                                            <button class='float-lg-right btn btn-primary mt-2' onclick='addToCart(this,".$row['pNo'].")'>加到購物車</button>
                                         </div>
                                     </div>
                                 </div>
@@ -207,7 +207,8 @@ include "db_conn.php";
 				<!-- ad listing list  -->
 
 				<!-- pagination -->
-				<div class="pagination justify-content-center py-4">
+                <!-- 商品太少應該是不用，反正也只有一個人在做 -->
+				<!-- <div class="pagination justify-content-center py-4">
 					<nav aria-label="Page navigation example">
 						<ul class="pagination">
 							<li class="page-item">
@@ -227,7 +228,7 @@ include "db_conn.php";
 							</li>
 						</ul>
 					</nav>
-				</div>
+				</div> -->
 				<!-- pagination -->
 			</div>
 		</div>
