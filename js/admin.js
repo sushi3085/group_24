@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function ($) {
     const tabLinks = $(".nav-link").slice(5);// Explite the header links
 
     // initialize the form

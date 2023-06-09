@@ -9,6 +9,7 @@ session_start();
   <!-- ** Basic Page Needs ** -->
   <meta charset="utf-8">
   <title>Appetite 購物車</title>
+  <link rel="stylesheet" href="css/cart.css">
 
   <?php
   include "color_ramp.php";
@@ -61,7 +62,7 @@ include "header.php";
                 </ul>
               </div>
               單價 <span class='font-weight-bolder text-monospace'>$price</span> 元<br>
-              總共<input type='number' min='0' style='width: 40px;' value='$amount' onchange='updateCost(this)'>份<br>
+              總共<input type='number' class='amount' min='0' style='width: 40px;' value='$amount' onchange='updateCost(this)'>份<br>
               小記 <span class='font-weight-bolder text-monospace'>".$price*$amount ."</span> 元<br>
               <button class='btn btn-warning btn-sm' style='align-self: center' onclick='cancelPurchase(this);'>取消購買</button>
             </div>
@@ -76,11 +77,64 @@ include "header.php";
   <h1 class="d-flex justify-content-center">總計共：<span id="totalCost"></span>元</h1>
   <!-- 立即購買 -->
   <div style="width: 50%; margin:auto; display: flex; justify-content: space-around;">
-    <button class="btn btn-danger">全數移出購物車</button>
-    <button class="btn btn-success">購買全部</button>
+    <button class="btn btn-danger" onclick="removeWholeCart();">全數移出購物車</button>
+    <button class="btn btn-success" onclick="showPurchaseModal();">購買全部</button>
   </div>
 </div>
 </div>
+
+
+<!-- Modal, showing cart item using table, confirm and cancel button at the bottom -->
+<?php
+$result = sqlQry("SELECT * FROM `member` WHERE `mId` = '$_SESSION[mId]'");
+$row = mysqli_fetch_assoc($result);
+$name = $row['name'];
+$phone = $row['phone'];
+?>
+<dialog close class="text-center" style="height: 80%;">
+  <form id="modalForm" method="POST">
+      <h2>確認購物車內容</h2><br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>商品名稱</th>
+            <th>單價</th>
+            <th>數量</th>
+            <th>小計</th>
+          </tr>
+        </thead>
+        <tbody id="modalTableBody">
+        </tbody>
+      </table>
+      <h3>總計：<span id="modalTotalCost"></span>元</h3>
+
+      <!-- customer profile table -->
+      <h1 class="mt-5">個人資料</h1>
+      <table class="mx-auto table profileTable w-75">
+        <tr>
+          <td>收貨人姓名<label id="name-error" class="error"></label></td>
+          <td><input type="text" name="name" value="<?php echo $name;?>"></td>
+        </tr>
+        <tr>
+          <td>電話<label id="phone-error" class="error"></label></td>
+          <td><input type="text" name="phone" value="<?php echo $phone;?>" required></td>
+        </tr>
+        <tr>
+          <td>地址<label id="address-error" class="error"></label></td>
+          <td><input type="text" name="address" required></td>
+        </tr>
+        <tr>
+          <td>付款方式</td>
+          <td>
+            目前僅支援貨到付款
+          </td>
+        </tr>
+      </table>
+      <input type="submit" class="btn btn-success" value="✨買單✨">
+      <input type="button" class="btn btn-danger" onclick="closeModal()" value="退出介面">
+  </form>
+</dialog>
+
 
 <?php
 include "footer.php";
@@ -96,12 +150,11 @@ include "footer.php";
 <script src="plugins/raty/jquery.raty-fa.js"></script>
 <script src="plugins/slick/slick.min.js"></script>
 <script src="plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-<!-- google map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU" defer></script>
-<script src="plugins/google-map/map.js" defer></script>
 
 <script src="js/script.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
 <script src="js/cart.js"></script>
 </body>
 </html>
