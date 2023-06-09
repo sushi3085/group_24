@@ -12,15 +12,12 @@ if( isset($_POST["mail"]) && isset($_POST["pswd"])){
   include "db_conn.php";
   $mail = $_POST["mail"];
   $pswd = $_POST["pswd"];
-  
-  $sql = "SELECT * FROM `member` WHERE `e-mail` = '$mail' AND `pswd` = '$pswd'";
-  $result = sqlQry($sql);
-  $row = mysqli_fetch_assoc($result);
-  if($row){
+  $hashed_pswd = sqlQry("SELECT * FROM `member` WHERE `e-mail` = '$mail'")->fetch_assoc()["pswd"];
+  if(password_verify($pswd, $hashed_pswd)){
+    $row = sqlQry("SELECT * FROM `member` WHERE `e-mail` = '$mail'")->fetch_assoc();
     echo "<script>alert('登入成功！');</script>";
     $_SESSION["mId"] = $row["mId"];
     $_SESSION["isAdmin"] = $_POST["mail"] == "admin@appetite.com";
-    echo "<script>console.log('isAdmin: ".$_SESSION["isAdmin"]."');</script>";
     header("Location: member_page.php");
     exit();
   }else{// log in failed

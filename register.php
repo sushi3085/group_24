@@ -14,8 +14,9 @@ if ( isset($_POST['registering']) ) {
     $name = $_POST['name'];
     $mail = $_POST['mail'];
     $pswd = $_POST['pswd'];
+    $hashed_pswd = password_hash($pswd, PASSWORD_DEFAULT);
     $birth = $_POST['birthday'];
-    $sql = "INSERT INTO `member` (`name`, `e-mail`, `pswd`, `birth`, `phone`) VALUES ('$name', '$mail', '$pswd', '$birth', 123213123)";
+    $sql = "INSERT INTO `member` (`name`, `e-mail`, `pswd`, `birth`, `phone`) VALUES ('$name', '$mail', '$hashed_pswd', '$birth', 123213123)";
     sqlQry($sql);
     // echo "<script>alert('註冊成功，請重新登入');</script>";
     header("Location: login.php");

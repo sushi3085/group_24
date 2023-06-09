@@ -9,12 +9,13 @@ session_start();
 include "db_conn.php";
 // read user information from database
 // $user_id = $_SESSION['user_id'];
-$result = sqlQry("SELECT * FROM `member` WHERE `mId` = '$_SESSION[mId]'");
+$mId = $_SESSION['mId'];
+$result = sqlQry("SELECT * FROM `member` WHERE `mId` = '$mId'");
 while($row = mysqli_fetch_assoc($result)){
     $userName = $row['name'];
     $userEmail = $row['e-mail'];
     $userBirthday = $row['birth'];
-    $userPassword = $row['pswd'];
+    $userPassword = '';// $row['pswd'];
 }
 ?>
 
@@ -79,7 +80,7 @@ include "color_ramp.php";
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <label>密碼</label><label id="password-error" class="error"></label><br>
+                            <label>密碼修改</label><label id="password-error" class="error"></label><br>
                             <input type="password" value="<?php echo $userPassword?>" name="password" minlength="8">
                         </div>
                     </div>
