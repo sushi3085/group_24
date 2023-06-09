@@ -38,18 +38,17 @@ include "header.php";
       $name = $productRow['pName'];
       $price = $productRow['unitPrice'];
       $desc = $productRow['description'];
-      // $imgPath = $row['imgPath'];
       // $rating = $row['rating'];
       echo
       "
         <div class='card col-lg-3 col-md-4 col-sm-6'>
           <div class='thumb-content mt-3'>
-            <a href='single.html'>
-              <img class='card-img-top img-fluid' src='images/products/$pNo.jpg' style='height:200px'>
+            <a href='all_goods.php?search=$name'>
+              <img class='card-img-top img-fluid' src='images/products/$pNo.jpg' style='aspect-ratio: 1/1;'>
             </a>
           </div>
           <div class='card-body'>
-            <h4 class='card-title'><a href='single.html'>$name</a></h4>
+            <h4 class='card-title'><a href='all_goods.php?search=$name'>$name</a></h4>
             <p class='card-text text-truncate'>$desc</p>
             <div style='text-align: center;'>
               <div class='product-ratings'>

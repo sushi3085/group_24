@@ -3,6 +3,10 @@ session_start();
 include "db_conn.php";
 
 if(!isset($_POST['pNo'])) exit(-1);
+if(!isset($_SESSION['mId'])){
+    echo "user_not_login";
+    exit(-2);
+}
 
 $mId = $_SESSION['mId'];
 $pNo = $_POST['pNo'];
