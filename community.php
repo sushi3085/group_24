@@ -131,7 +131,8 @@ include "header.php";
                         <b>發布時間：</b><span>$date</span>
                     </div>
                     <div class='col-md-12 mt-3'>
-                        <b>內容：</b><span>".nl2br($content)."</span>
+                        <b>內容：</b><br>
+                        <span>".nl2br($content)."</span>
                     </div>
                 </div>
                 ";

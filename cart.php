@@ -63,7 +63,7 @@ include "header.php";
               單價 <span class='font-weight-bolder text-monospace'>$price</span> 元<br>
               總共<input type='number' min='0' style='width: 40px;' value='$amount' onchange='updateCost(this)'>份<br>
               小記 <span class='font-weight-bolder text-monospace'>".$price*$amount ."</span> 元<br>
-              <button class='btn btn-warning btn-sm' style='align-self: center'>取消購買</button>
+              <button class='btn btn-warning btn-sm' style='align-self: center' onclick='cancelPurchase(this);'>取消購買</button>
             </div>
           </div>
         </div>
