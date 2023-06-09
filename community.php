@@ -70,10 +70,11 @@ include "header.php";
                 <h3 class="text-center">發表評論吧</h3>
             </div>
         </div>
-        <form action="community.php" method="POST">
+        <form action="community.php" method="POST" id="commentForm">
             <div class="row col-md-12 p-3 border border-success border-dashed">
                 <div class="col-md-12">
-                    <input type="text" size=40 name="title" placeholder="請輸入標題(必填)">
+                    <label id="title-error" class="error"></label><br>
+                    標題：<input type="text" size=40 name="title" placeholder="請輸入標題(必填)">
                     選擇類別：
                     <select name="category">
                         <option value="暫時想不到">暫時想不到</option>
@@ -84,11 +85,14 @@ include "header.php";
                     </select>
                 </div>
                 <div class="col-md-12 mt-3">
-                    <label>您的名字：</label>
+                    您的名字：
                     <input type="text" size=10 value="<?php echo $userName;?>" id="name" disabled>
-                    <input type="checkbox" name="isAnonymous" onclick="toggleNameDisplay();"><label>我想匿名投稿</label>
+                    <input type="checkbox" name="isAnonymous" onclick="toggleNameDisplay();" id="anonymous"><label for="anonymous">我想匿名投稿</label>
                 </div>
-                <textarea class="w-100" name="content" placeholder="請輸入內容(必填)" name="content"></textarea>
+                <div class="col-md-12 mt-3">
+                    <label id="content-error" class="error"></label>
+                    <textarea class="w-100" name="content" placeholder="請輸入內容(必填)"></textarea>
+                </div>
                 <div class="col-md-12 text-center mt-3">
                     <input type="submit" class="btn btn-primary" value="送出">
                 </div>
@@ -134,6 +138,7 @@ include "header.php";
             }
         }else if(isset($_POST['content'])){// user has sent a comment
             echo "
+            <script>alert('您的評論已送出');</script>
             <h1 class='text-center'>您的評論已送出</h1>
             ";
         }
