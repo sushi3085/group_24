@@ -28,7 +28,7 @@ include "header.php";
     <?php
     // extract cart data from database
     include "db_conn.php";
-    $result = sqlQry("SELECT * FROM `cart` WHERE `mId` = '$_SESSION[mId]'");
+    $result = sqlQry("SELECT * FROM `cart` WHERE `mId` = '$_SESSION[mId]' AND (`orderId` IS NULL)");
 
     while($row = mysqli_fetch_assoc($result)){
       $pNo = $row['pNo'];
@@ -92,7 +92,7 @@ $name = $row['name'];
 $phone = $row['phone'];
 ?>
 <dialog close class="text-center" style="height: 80%;">
-  <form id="modalForm" method="POST">
+  <form id="modalForm" method="POST"> <!-- 他不會真的 submit 出去任何地方 -->
       <h2>確認購物車內容</h2><br>
       <table class="table">
         <thead>
@@ -113,15 +113,15 @@ $phone = $row['phone'];
       <table class="mx-auto table profileTable w-75">
         <tr>
           <td>收貨人姓名<label id="name-error" class="error"></label></td>
-          <td><input type="text" name="name" value="<?php echo $name;?>"></td>
+          <td><input class="modalTableInput" disabled type="text" name="name" value="<?php echo $name;?>"></td>
         </tr>
         <tr>
           <td>電話<label id="phone-error" class="error"></label></td>
-          <td><input type="text" name="phone" value="<?php echo $phone;?>" required></td>
+          <td><input disabled class="modalTableInput" type="text" name="phone" value="<?php echo $phone;?>" required></td>
         </tr>
         <tr>
           <td>地址<label id="address-error" class="error"></label></td>
-          <td><input type="text" name="address" required></td>
+          <td><input class="modalTableInput" type="text" name="address" required></td>
         </tr>
         <tr>
           <td>付款方式</td>

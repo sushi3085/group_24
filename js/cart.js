@@ -56,12 +56,16 @@ $(document).ready(function () {
             return false;
         }
         // ajax to update db
-        let size = $("#modalTableBody:input").length;
         $.ajax({
             url: "purchase.php",
             type: "POST",
-            data: $("#modalTableBody:input").serialize()+"&size="+size,
+            data: {
+                "name": $("input[name='name']").val(),
+                "phone": $("input[name='phone']").val(),
+                "address": $("input[name='address']").val(),
+            },
             success: function (response) {
+                console.log(response);
                 if(response == "success"){
                     alert("購買成功");
                 }else{
@@ -170,7 +174,6 @@ function showPurchaseModal(){
     let allInputs = $("input.amount[type='number']");
     let tBody = $("#modalTableBody");
     tBody.empty();
-    let i=0;
     allInputs.each(function () {
         let amount = +$(this).val();
         if(amount == 0) return;
@@ -181,9 +184,6 @@ function showPurchaseModal(){
         newRow.append($("<td></td>").text(price));
         newRow.append($("<td></td>").text(amount));
         newRow.append($("<td></td>").text(price * amount));
-        newRow.append($("<input hidden name='"+i+"' value='"+pName+"'>"))
-        newRow.append($("<input hidden name='"+i+"' value='"+price+"'>"))
-        newRow.append($("<input hidden name='"+i+"' value='"+newRow+"'>"))
         tBody.append(newRow);
     });
     $("#modalTotalCost").text($("#totalCost").text());

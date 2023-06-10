@@ -1,14 +1,27 @@
 <?php
 session_start();
-$mId = $_SESSION['mId'];
-
+// access data from ajax .serialize()
 include "db_conn.php";
 
-// get all goods in the cart of the member
-$result = sqlQry("SELECT * FROM `cart` WHERE `mId` = '$mId'");
-while($row = mysqli_fetch_assoc($result)){
-    sqlQry("INSERT INTO `order`
-    (`mId`, `gId`, `quantity`, `totalCost`, `status`) VALUES
-    ('$mId', '$row[gId]', '$row[quantity]', '$row[totalCost]', '0')");
+$mId = $_SESSION['mId'];
+$orderTime = date("Y-m-d");
+$receiver = $_POST['name'];// sqlQry("SELECT * FROM `member` WHERE `mId` = '$mId'")->fetch_assoc()['name'];
+$phone = $_POST['phone'];
+$address = $_POST['address'];
+
+// insert new order in the `order` table
+// mId, orderTime, reciever, address, 
+$result = sqlQry("INSERT INTO `order`
+                    (`mId`, `orderTime`, `receiver`, `address`) VALUES
+                    ('$mId', '$orderTime', '$receiver', '$address')");
+
+// update all user cart orderId to the new orderId
+if($result){
+    $orderId = sqlQry("SELECT * FROM `order` WHERE `mId` = '$mId' AND `orderTime` = '$orderTime'")->fetch_assoc()['orderId'];
+    sqlQry("UPDATE `cart` SET `orderId` = '$orderId' WHERE `mId` = '$mId' AND `orderId` IS NULL");
+    echo "success";
+    exit();
 }
+echo "fail";
+exit();
 ?>
