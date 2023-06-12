@@ -1,5 +1,11 @@
 <?php
 session_start();
+// include "cookie.php";
+
+// if($mId = getCookieOrDefault("stayLogin", false)){
+//   $_SESSION['mId'] = $mId;
+//   echo "<script>alert('登入成功！$mId');</script>";
+// }
 
 // check if user is logged in, if so, redirect to member_page.php
 if ( isset($_SESSION['mId']) ) {
@@ -12,8 +18,12 @@ if( isset($_POST["mail"]) && isset($_POST["pswd"])){
   include "db_conn.php";
   $mail = $_POST["mail"];
   $pswd = $_POST["pswd"];
-  $hashed_pswd = sqlQry("SELECT * FROM `member` WHERE `e-mail` = '$mail'")->fetch_assoc()["pswd"];
+  $row = sqlQry("SELECT * FROM `member` WHERE `e-mail` = '$mail'")->fetch_assoc();
+  $hashed_pswd = $row["pswd"];
+  $mId = $row["mId"];
+
   if(password_verify($pswd, $hashed_pswd)){
+    // if(isset($_POST["keepLogin"])) setcookie("stayLogin", $mId, time()+60*60*24*14);// 兩個禮拜
     $row = sqlQry("SELECT * FROM `member` WHERE `e-mail` = '$mail'")->fetch_assoc();
     echo "<script>alert('登入成功！');</script>";
     $_SESSION["mId"] = $row["mId"];
@@ -61,7 +71,7 @@ include "header.php";
               <input class="form-control mb-3" type="password" placeholder="密碼(必填)" name="pswd" required>
               <div class="loggedin-forgot">
                 <input type="checkbox" id="keep-me-logged-in">
-                <label for="keep-me-logged-in" class="pt-3 pb-2">保持登入狀態</label>
+                <label for="keep-me-logged-in" class="pt-3 pb-2" name="keepLogin">保持登入狀態</label>
               </div>
               <div style="text-align:center;">
                 <input type="submit" class="btn btn-primary font-weight-bold mt-3 btn-wide" value="登入喵">

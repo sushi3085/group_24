@@ -154,24 +154,26 @@ include "header.php";
                                             <tr>
                                                 <th>訂單編號</th>
                                                 <th>下訂會員</th>
-                                                <th>產品名稱</th>
-                                                <th>產品數量</th>
-                                                <th>訂單狀態</th>
-                                                <th>訂單操作</th>
+                                                <th>下訂日期</th>
+                                                <th>收貨的人</th>
+                                                <th>地址</th>
+                                                <th colspan="2">訂單操作</th>
                                             </tr>
                                             <?php
                                             $result = sqlQry("SELECT * FROM `order`");
                                             while($row = mysqli_fetch_assoc($result)){
                                                 $orderId = $row['orderId'];
-                                                $productName = mysqli_fetch_assoc(sqlQry("SELECT * FROM `product` WHERE `pNo` = '".$row['pNo']."'"))['pName'];
                                                 $memberName = mysqli_fetch_assoc(sqlQry("SELECT * FROM `member` WHERE `mId` = '".$row['mId']."'"))['name'];
+                                                $orderTime = $row['orderTime'];
+                                                $receiver = $row['receiver'];
+                                                $address = $row['address'];
                                                 echo "<tr>";
                                                 echo "
-                                                <td>".$row['orderId']."</td>
+                                                <td>$orderId</td>
                                                 <td>$memberName</td>
-                                                <td>$productName</td>
-                                                <td> -1 </td>
-                                                <td></td>
+                                                <td>$orderTime</td>
+                                                <td>$receiver</td>
+                                                <td>$address</td>
                                                 <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editModal' onclick='showModal(this)'>編輯</button></td>
                                                 <td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#deleteModal'>刪除</button></td>
                                                 ";
