@@ -22,14 +22,30 @@ while($row = mysqli_fetch_assoc($result)){
 <?php
 // check if user is saving the change, if so, update database
 // and update the user information in this page
-if ( isset($_POST['userName']) ) {
-    $originName = $_POST['originName'];
+if ( isset($_POST['userName'])) {
     $userName = $_POST['userName'];
+    $originEmail = $_POST['originEmail'];
     $userEmail = $_POST['email'];
     $userBirthday = $_POST['birthday'];
-    // TODO: implement password change
-    $sql = "UPDATE `member` SET `name` = '$userName', `e-mail` = '$userEmail', `birth` = '$userBirthday' WHERE `name` = '$originName'";
-    sqlQry($sql);
+    $userPassword = $_POST['password'];
+    $newPassword = $_POST['newPassword'];
+    $hashedPassword = sqlQry("SELECT `pswd` FROM `member` WHERE `e-mail` = '$originEmail'")->fetch_assoc()['pswd'];
+    // check if the password is correct
+    $isFailChangeProfile = false;
+    if(!password_verify($userPassword, $hashedPassword)){
+        $isFailChangeProfile = true;
+        echo "<script>alert('密碼錯誤，請重新輸入');</script>";
+        header("member_page.php");
+    }
+    if(!$isFailChangeProfile){
+        // prepare the new password
+        if(isset($_POST['newPassword'])) $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        else $newPassword = $hashedPassword;
+        
+        $sql = "UPDATE `member` SET `name` = '$userName', `e-mail` = '$userEmail', `birth` = '$userBirthday', `pswd` = '$newPassword' WHERE `e-mail` = '$originEmail'";
+        $result = sqlQry($sql);
+        if($result) echo "<script>alert('成功更新個人資料！');</script>";
+    }
 }
 ?>
 
@@ -38,6 +54,7 @@ include "header.php";
 include "color_ramp.php";
 ?>
 <head>
+    <title>會員資料頁面</title>
     <link rel="stylesheet" href="css/member.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
@@ -61,14 +78,14 @@ include "color_ramp.php";
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <label>姓名</label><label id="userName-error" class="error"></label><br>
-                            <input type="text" value="<?php echo $userName?>" name="originName" hidden>
                             <input type="text" value="<?php echo $userName?>" size="5" name="userName">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <label>電子郵件</label><label id="email-error" class="error"></label>
-                            <label id="mail-exist" class="error"></label><br>
+                            <span id="mail-exist" class="error"></span><br>
+                            <input type="text" value="<?php echo $userEmail?>" name="originEmail" hidden>
                             <input id="mail" type="email" value="<?php echo $userEmail?>" size="30" name="email" require>
                         </div>
                     </div>
@@ -80,14 +97,14 @@ include "color_ramp.php";
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <label>密碼修改</label><label id="password-error" class="error"></label><br>
-                            <input type="password" value="<?php echo $userPassword?>" name="password" minlength="8">
+                            <label>確認原始密碼(必填)</label><label id="password-error" class="error"></label><br>
+                            <input type="password" value="" name="password" minlength="8">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                            <label>確認密碼</label><label id="passwordConf-error" class="error"></label><br>
-                            <input type="password" value="<?php echo $userPassword?>" name="passwordConf" minlength="8">
+                            <label>確認修改密碼(選填)</label><label id="newPassword-error" class="error"></label><br>
+                            <input type="password" value="" name="newPassword" minlength="8">
                         </div>
                     </div>
                 </div>
