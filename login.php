@@ -75,8 +75,8 @@ include "header.php";
               </div>
               <div style="text-align:center;">
                 <input type="submit" class="btn btn-primary font-weight-bold mt-3 btn-wide" value="登入喵">
-                <a class="mt-3 d-block text-primary" href="#!">汪記密碼喵？</a>
-                <a class="mt-3 d-inline-block text-primary" href="register.php">還沒註冊汪？</a>
+                <!-- <a class="mt-3 d-block text-primary" href="#!">汪記密碼喵？</a> -->
+                <a class="mt-3 d-block text-primary" href="register.php">還沒註冊喵？</a>
               </div>
             </fieldset>
           </form>

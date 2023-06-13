@@ -18,7 +18,7 @@ $result = sqlQry("INSERT INTO `order`
 // update all user cart orderId to the new orderId
 if($result){
     $orderId = sqlQry("SELECT * FROM `order` WHERE `mId` = '$mId' AND `orderTime` = '$orderTime'")->fetch_assoc()['orderId'];
-    sqlQry("UPDATE `cart` SET `orderId` = '$orderId' WHERE `mId` = '$mId' AND `orderId` IS NULL");
+    sqlQry("UPDATE `cart` SET `orderId` = '$orderId' WHERE `mId` = '$mId' AND `orderId` = '0'");
     echo "success";
     exit();
 }

@@ -178,12 +178,27 @@ function showPurchaseModal(){
         let amount = +$(this).val();
         if(amount == 0) return;
         let pName = $(this).closest("div.card").find("h4").first().text();
-        let price = +$(this).closest("div.card").find("span").last().text();
+        let price = +$(this).closest("div.card").find("span").first().text();
         let newRow = $("<tr></tr>");
         newRow.append($("<td></td>").text(pName));
         newRow.append($("<td></td>").text(price));
         newRow.append($("<td></td>").text(amount));
         newRow.append($("<td></td>").text(price * amount));
+        // update goods with its current amount in the cart
+        $.ajax({
+            url: "updateCart.php",
+            type: "POST",
+            data: {
+                pName: pName,
+                amount: amount
+            },
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("update cart error");
+            }
+        });
         tBody.append(newRow);
     });
     $("#modalTotalCost").text($("#totalCost").text());

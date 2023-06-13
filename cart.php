@@ -113,12 +113,13 @@ $phone = $row['phone'];
       <h1 class="mt-5">個人資料</h1>
       <table class="mx-auto table profileTable w-75">
         <tr>
+          <label style="display:none;" id="mId"><?php echo $_SESSION['mId'];?></label>
           <td>收貨人姓名<label id="name-error" class="error"></label></td>
           <td><input class="modalTableInput" disabled type="text" name="name" value="<?php echo $name;?>"></td>
         </tr>
         <tr>
           <td>電話<label id="phone-error" class="error"></label></td>
-          <td><input disabled class="modalTableInput" type="text" name="phone" value="<?php echo $phone;?>" required></td>
+          <td><input class="modalTableInput" type="text" name="phone" value="" required></td>
         </tr>
         <tr>
           <td>地址<label id="address-error" class="error"></label></td>
