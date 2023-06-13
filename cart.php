@@ -28,7 +28,8 @@ include "header.php";
     <?php
     // extract cart data from database
     include "db_conn.php";
-    $result = sqlQry("SELECT * FROM `cart` WHERE `mId` = '$_SESSION[mId]' AND (`orderId` IS NULL)");
+    $mId = $_SESSION['mId'];
+    $result = sqlQry("SELECT * FROM `cart` WHERE `mId` = '$mId' AND `orderId` = '0'");
 
     while($row = mysqli_fetch_assoc($result)){
       $pNo = $row['pNo'];
