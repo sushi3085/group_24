@@ -4,7 +4,7 @@ session_start();
 include "db_conn.php";
 
 $mId = $_SESSION['mId'];
-$orderTime = date("Y-m-d");
+$orderTime = date("Y-m-d H:i:s");
 $receiver = $_POST['name'];// sqlQry("SELECT * FROM `member` WHERE `mId` = '$mId'")->fetch_assoc()['name'];
 $phone = $_POST['phone'];
 $address = $_POST['address'];

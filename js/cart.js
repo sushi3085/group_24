@@ -71,13 +71,14 @@ $(document).ready(function () {
                 }else{
                     alert("購買失敗");
                 }
+                // refresh page, put this code in here
+                // because $.ajax is asynchronous
+                window.location.reload();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("購買失敗");
             }
         });
-        // refresh page
-        window.location.reload();
         return true;
     });
 });
