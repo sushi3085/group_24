@@ -64,7 +64,10 @@ echo"
 								if($_SESSION['isAdmin']==1)
 									echo "<li class='nav-item'><a class='nav-link login-button' href='admin.php' style='border: solid black 2px; color:black;'>管理頁</a></li>";
 								else
+								{
 									echo "<li class='nav-item'><a class='nav-link login-button' href='cart.php' style='border: solid black 2px; color:black;'>購物車</a></li>";
+									echo "<li class='nav-item'><a class='nav-link login-button' href='orderState.php' style='border: solid black 2px; color:black;'>訂單查詢</a></li>";
+								}	
 							}
 							if(!isset($_SESSION['mId']))echo "<li class='nav-item'><a class='nav-link text-white add-button' href='register.php'><i class='fa fa-plus-circle'></i> 加入會員</a></li>";
 							else echo "<li class='nav-item'><a class='nav-link text-white minus-button' href='logout.php'><i class='fa fa-minus-circle'></i> 登出</a></li>";
