@@ -17,8 +17,8 @@ echo'
         <p class="alt-color" style="text-align:center; color:black;">
           組員：<br>
           S0943020 蘇煒翔<br>
-          S1234567 ㄇㄖㄏ<br>
-          S7654321 ㄈㄗㄌ
+          S1054010 范紹綸<br>
+          S1061113 梁安妤
         </p>
       </div>
       <!-- Link list -->
