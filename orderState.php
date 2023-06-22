@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +32,7 @@ include "header.php";
 	
 	include "db_conn.php";
 	$mId = $_SESSION['mId'];
+	
 	$result1 = sqlQry("SELECT * FROM `order` WHERE `mId` = '$mId'");
 
 	while ($row = mysqli_fetch_assoc($result1)) {
@@ -92,16 +94,27 @@ include "header.php";
 					<td>$subTotal</td>
 				</tr>";
 		}
+		if(isset($_GET['orderid'])){
+				$result4 = sqlQry("DELETE FROM `order` WHERE `orderId` = '$orderid'");
+				header("Location: orderState.php");
 
+			}
 		echo "
 					</tbody>
 				</table>
 				<h3>收件地址 : <span>$address</span></h3>
 				<h3>總計：<span>$totalPrice</span>元</h3>
+				<form method='get' action='orderState.php'>
 				<table class='table'>
-					<thead><th></th></thead>
+					
+					
+					<input type='hidden' name='$orderid' value='orderid'>
+					<input type='submit' name='orderid' class='btn btn-danger' data-toggle='modal' value='刪除' ;>
+					
 				</table>
+				</form>
 			</div>";
+			
 	}
 	?>
 
